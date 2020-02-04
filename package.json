@@ -1,0 +1,23 @@
+{
+  "name": "at-it-s-best",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yogita-25/node-at-it-s-best.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yogita-25/node-at-it-s-best/issues"
+  },
+  "homepage": "https://github.com/Yogita-25/node-at-it-s-best#readme",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "validator": "^10.8.0"
+  }
+}
