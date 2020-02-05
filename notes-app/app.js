@@ -2,7 +2,7 @@
 const { getNotes } = require('./notes');
 const { createNotes } = require('./notes');
 const yargs = require('yargs');
-
+const chalk = require('chalk');
 //custmize yarg version
 yargs.version('1.1.0');
 
@@ -10,8 +10,21 @@ yargs.version('1.1.0');
 yargs.command({
     command: 'add',
     describe: 'add a new note',
-    handler: function () {
-        console.log('Adding new note');
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,          //title is required (default value is false)
+            type: 'string'                  //even if the arg --title provided without value , by default it gets value true, to avoid that add this property for string only string value 
+        },
+        body: {
+            describe: 'Note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        console.log(chalk.red('Title :', argv.title));
+        console.log(chalk.green('Body :', argv.body));
     }
 })
 
@@ -42,4 +55,5 @@ yargs.command({
     }
 })
 
-console.log(yargs.argv);
+yargs.parse();          //to parse the argument
+//console.log(yargs.argv);
