@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/Yogita-25/node-at-it-s-best#readme",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "validator": "^10.8.0"
+    "chalk": "^2.4.2",
+    "validator": "^10.8.0",
+    "yargs": "^15.1.0"
   }
 }

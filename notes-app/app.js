@@ -1,13 +1,45 @@
 
 const { getNotes } = require('./notes');
 const { createNotes } = require('./notes');
-const chalk = require('chalk');
+const yargs = require('yargs');
 
-getNotes();
-createNotes();
+//custmize yarg version
+yargs.version('1.1.0');
 
-console.log("---command line argument 1",process.argv[0]);   //node path
-console.log("---command line argument 2",process.argv[1]);   //current running file path
-console.log("---command line argument 3",process.argv[2]);   //command line arguments
+//Create add command
+yargs.command({
+    command: 'add',
+    describe: 'add a new note',
+    handler: function () {
+        console.log('Adding new note');
+    }
+})
 
-console.log(chalk.red.bold('Erro!'));
+//Create remove commad
+yargs.command({
+    command: 'remove',
+    describe: 'remove a note',
+    handler: function () {
+        console.log('Removing a note');
+    }
+})
+
+//Create read command
+yargs.command({
+    command: 'read',
+    describe: 'read a note',
+    handler: function () {
+        console.log('Reading a note');
+    }
+})
+
+//Create list command 
+yargs.command({
+    command: 'list',
+    describe: 'list the notes',
+    handler: function () {
+        console.log('Listing all the notes');
+    }
+})
+
+console.log(yargs.argv);
