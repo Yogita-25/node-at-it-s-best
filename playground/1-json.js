@@ -1,14 +1,18 @@
-const book = {
-    title: 'let us c',
-    author: 'Yashwant Kanetkar'
-}
+const fs = require('fs');
 
-console.log("book", book);                           //book { title: 'let us c', author: 'Yashwant Kanetkar' }  //book.title gives title of the book
+const dataBuffer = fs.readFileSync('1-json.json');
 
-const objectToString = JSON.stringify(book);
+const bufferToString = dataBuffer.toString();
 
-console.log("objectToString", objectToString);      //objectToString {"title":"let us c","author":"Yashwant Kanetkar"}  //objectToString.title gives undefined as objectToString is a String
+const stringToObject = JSON.parse(bufferToString);
 
-const stringToObject = JSON.parse(objectToString);
+console.log(stringToObject);
 
-console.log("stringToObject", stringToObject);    //stringToObject { title: 'let us c', author: 'Yashwant Kanetkar' }
+stringToObject.name='Yogita';
+stringToObject.age='22';
+
+console.log(stringToObject);
+
+const objectToString = JSON.stringify(stringToObject);
+
+fs.writeFileSync('1-json.json',objectToString);
