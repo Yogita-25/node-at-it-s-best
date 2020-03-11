@@ -1,1 +1,22 @@
-[{"title":"=to do things","body":"things to buy"},{"title":"Learning course","body":"Node, React"},{"title":"Completed course","body":"Git"},{"title":"Completed course by Radha","body":"Git"},{"title":"Completed course by Mady","body":"Git"}]
+[
+    {
+        "title": "=to do things",
+        "body": "things to buy"
+    },
+    {
+        "title": "Learning course",
+        "body": "Node, React"
+    },
+    {
+        "title": "Completed course",
+        "body": "Git"
+    },
+    {
+        "title": "Completed course by Radha",
+        "body": "Git"
+    },
+    {
+        "title": "Completed course by Mady",
+        "body": "Git"
+    }
+]

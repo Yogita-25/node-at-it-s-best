@@ -39,16 +39,10 @@ const removeNote = function (title) {
 
     if(notes.length > notesToKeep.length){
         console.log(chalk.red.inverse("Note removed"),title);
+        saveNotes(notesToKeep);
     }else{
         console.log(chalk.bgGreen("Note does not exist"),title);
     }
-   
-    saveNotes(notesToKeep);
-    // if (existingNote.length !== 0) {
-    //     console.log("note removed", existingNote);
-    // } else {
-    //     console.log("note does not exist", existingNote);
-    // }
 }
 
 const saveNotes = function (notes) {
