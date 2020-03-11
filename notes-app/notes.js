@@ -1,4 +1,5 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 const getNotes = function () {
     console.log("---get notes function");
@@ -18,30 +19,36 @@ const addNote = function (title, body) {
         return note.title === title;
     })
 
-    if(duplicateNotes.length === 0){
+    if (duplicateNotes.length === 0) {
         notes.push({
             title: title,
             body: body
         })
         saveNotes(notes);
         console.log("New note added");
-    }else{
-        console.log("Note tile taken");    
-    }   
+    } else {
+        console.log("Note tile taken");
+    }
 }
 
-const removeNote = function(title){
+const removeNote = function (title) {
     const notes = loadNotes();
-
-    const existingNote = notes.filter(function (note){
-        return note.title === title ? title : null;
+    const notesToKeep = notes.filter(function (note) {
+        return note.title !== title;
     })
 
-    if(existingNote.length !== 0){
-        console.log("note removed",existingNote);
+    if(notes.length > notesToKeep.length){
+        console.log(chalk.red.inverse("Note removed"),title);
     }else{
-        console.log("note does not exist",existingNote);
+        console.log(chalk.bgGreen("Note does not exist"),title);
     }
+   
+    saveNotes(notesToKeep);
+    // if (existingNote.length !== 0) {
+    //     console.log("note removed", existingNote);
+    // } else {
+    //     console.log("note does not exist", existingNote);
+    // }
 }
 
 const saveNotes = function (notes) {
