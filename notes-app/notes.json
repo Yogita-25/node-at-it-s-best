@@ -1,9 +1,5 @@
 [
     {
-        "title": "=to do things",
-        "body": "things to buy"
-    },
-    {
         "title": "Learning course",
         "body": "Node, React"
     },
@@ -18,5 +14,9 @@
     {
         "title": "Completed course by Mady",
         "body": "Git"
+    },
+    {
+        "title": "git by yogita",
+        "body": "the complete git"
     }
 ]
