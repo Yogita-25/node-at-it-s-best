@@ -1,21 +1,8 @@
-console.log("Starting");
+const request = require("request");
 
-setTimeout(() => {
-    console.log("Print this after 2000 mili seconds i.e 2 seconds");
-}, 2000);
+const url = "https://api.darksky.net/forecast/167d03b94dd222d1393aeadb05a4d3eb/37.8267,-122.4233";
 
-setTimeout(() => {
-    console.log("Print this after 0 seconds");
-}, 0);
-
-console.log("Stop");
-
-// *****************OUTPUT
-// Starting
-// Stop
-// Print this after 0 seconds
-// Print this after 2000 mili seconds i.e 2 seconds
-// ----------------------------------------------
-
-// This "Print this after 0 seconds" is printed after this "Stop"
-// because "Event Loop" does not allow to run "Callback Queue" untill "Call Stack" is empty
+request({url:url},(error,response)=>{
+    const data = JSON.parse(response.body);
+    console.log(data.currently);
+})
