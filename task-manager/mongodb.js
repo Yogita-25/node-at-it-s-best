@@ -12,25 +12,15 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
         return console.log("Unable to connect to database", error);
     }
     const db = client.db(database);
-    db.collection('users').findOne({ _id: new ObjectId('5e88c0dcea8a333cbce3079d') }, (error, user) => {
+
+    db.collection('tasks').findOne({ _id: new ObjectId('5e88c29c90ad2225904e6497') }, (error, task) => {
         if (error) {
-           return console.log("Unable to read user");
+            return console.log("Unable to read task");
         }
-        console.log(user);
-    });
+        console.log(task);
+    })
 
-    db.collection('users').find({age : 22}).toArray((error,user)=>{   //find() does not have callback function
-        if(error){
-            return console.log("Unable to read user");
-        }
-        console.log(user);
-    });
-
-    db.collection('users').find({age : 27}).count((error,count)=>{   //find() does not have callback function
-        if(error){
-            return console.log("Unable to count users");
-        }
-        console.log(count);
-    });
-
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks)=> {
+        console.log("====not completed",tasks);
+    })
 })
