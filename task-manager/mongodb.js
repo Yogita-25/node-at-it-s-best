@@ -8,7 +8,16 @@ const database = 'task-manager';
 
 MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if (error) {
-        return console.log("Unable to connect to database");
+        return console.log("Unable to connect to database", error);
     }
-    console.log("Connected successfully");
+    const db = client.db(database);
+    db.collection('users').insertOne({
+        name: 'Yogita',
+        age: 22
+    }, (error, result) => {
+        if (error) {
+            return console.log("Unable to insert user!");
+        }
+        console.log(result.ops);
+    })
 })
