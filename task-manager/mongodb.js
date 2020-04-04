@@ -6,8 +6,8 @@ const connectionURL = 'mongodb://127.0.0.1:27017';
 const database = 'task-manager';
 
 const id = new ObjectId();  
-console.log(id.id.length);
-console.log(id.toHexString().length);
+console.log(id.id.length);              //12
+console.log(id.toHexString().length);   //24
 
 MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if (error) {
