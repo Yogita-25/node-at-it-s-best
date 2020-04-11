@@ -44,35 +44,37 @@ const User = mongoose.model('User', {
     }
 });
 
-const newUser = new User({
-    name: '  Yogita',
-    email: '   dyogita@gmail.com',
-    password: "asPssword",
-    age : 22
-});
-
-newUser.save().then((result) => {
-    console.log("New user==", result);
-}).catch((error) => {
-    console.log('Error!', error);
-});
-
-// const Task = mongoose.model('Task', {
-//     description: {
-//         type: String
-//     },
-//     completed: {
-//         type: Boolean
-//     }
+// const newUser = new User({
+//     name: '  Yogita',
+//     email: '   dyogita@gmail.com',
+//     password: "asPssword",
+//     age : 22
 // });
 
-// const newTask = new Task({
-//     description: 'Learning node from Udemy',
-//     completed: false
-// });
-
-// newTask.save().then((result) => {
-//     console.log(result);
+// newUser.save().then((result) => {
+//     console.log("New user==", result);
 // }).catch((error) => {
-//     console.log("Error!", error);
-// })
+//     console.log('Error!', error);
+// });
+
+const Task = mongoose.model('Task', {
+    description: {
+        type: String,
+        required : true,
+        trim : true
+    },
+    completed: {
+        type: Boolean,
+        default : false
+    }
+});
+
+const newTask = new Task({
+    description: '    Learning node from Udemy'
+});
+
+newTask.save().then((result) => {
+    console.log(result);
+}).catch((error) => {
+    console.log("Error!", error);
+})
