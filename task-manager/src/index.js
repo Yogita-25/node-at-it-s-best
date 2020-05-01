@@ -1,8 +1,6 @@
 const express = require('express');
-require('./db/mongoose');
+require('./db/mongoose');            //connect with DB
 
-const User = require('./models/user');
-const Task = require('./models/task');
 const userRouter = require('./routers/user');
 const taskRouter = require('./routers/task');
 const app = express();
