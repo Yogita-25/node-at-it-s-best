@@ -49,6 +49,15 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
+userSchema.methods.toJSON = function () {                           //don't make this function async
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.tokens;
+    return userObject;
+}
+
+
 userSchema.methods.generateAuthToken = async function () {              //methods -> instance methods
     const user = this;
     const token = jwt.sign({ _id: user._id.toString() }, 'yogitalearningnode');
