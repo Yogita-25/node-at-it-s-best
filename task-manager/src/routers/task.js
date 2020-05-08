@@ -4,15 +4,19 @@ const router = new express.Router();
 const auth = require('../middleware/auth');
 
 router.get('/tasks', auth, async (req, res) => {
-    const match={};
-    if(req.query.completed){
-            match.completed = req.query.completed === 'true'     //to convert string to boolean
+    const match = {};
+    if (req.query.completed) {
+        match.completed = req.query.completed === 'true'     //to convert string to boolean
     }
     try {
-              
+
         await req.user.populate({
             path: 'tasks',
-            match
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip)
+            }
         }).execPopulate();
         res.send(req.user.tasks);
     } catch (e) {
