@@ -47,9 +47,12 @@ const userSchema = new mongoose.Schema({
             type: String,
             require: true
         }
-    }]
-},{
-    timestamps : true
+    }],
+    avatar: {
+        type: Buffer
+    }
+}, {
+    timestamps: true
 });
 
 userSchema.virtual('tasks', {
@@ -99,7 +102,7 @@ userSchema.pre('save', async function (next) {
 //delete user tasks when the user is deleted
 userSchema.pre('remove', async function (next) {
     const user = this;
-    await Task.deleteMany({createdBy: user._id});
+    await Task.deleteMany({ createdBy: user._id });
     next();
 })
 
