@@ -2,8 +2,10 @@
 
 const { MongoClient, ObjectId } = require('mongodb');;
 
-const connectionURL = 'mongodb://127.0.0.1:27017';
+const connectionURL = process.env.MONGODB_URL;
 const database = 'task-manager';
+
+require('./config/dev.env')
 
 const id = new ObjectId();
 
@@ -13,19 +15,4 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     }
     const db = client.db(database);
 
-   db.collection('users').deleteMany({
-       age : 22
-   }).then((result)=>{
-       console.log(result.deletedCount);
-   }).catch((error)=>{
-       console.log(error);
-   })
-
-   db.collection('tasks').deleteOne({
-    description :'Blockchain'
-   }).then((result)=>{
-       console.log(result.deletedCount);
-   }).catch((error)=>{
-       console.log(error);
-   })
 })

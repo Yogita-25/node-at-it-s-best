@@ -1,8 +1,7 @@
 const NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const sendgridAPIKey = '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';
 const sGmail = require('@sendgrid/mail');
 
-sGmail.setApiKey(sendgridAPIKey);
+sGmail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendWelcomeEmail = (email, name) => {
     sGmail.send({

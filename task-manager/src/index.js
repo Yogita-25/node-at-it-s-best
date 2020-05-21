@@ -3,8 +3,9 @@ require('./db/mongoose');            //connect with DB
 
 const userRouter = require('./routers/user');
 const taskRouter = require('./routers/task');
+const env = require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(express.json());     //add this otherwise you would get req.body undefined
 

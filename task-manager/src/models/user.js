@@ -73,7 +73,7 @@ userSchema.methods.toJSON = function () {                           //don't make
 
 userSchema.methods.generateAuthToken = async function () {              //methods -> instance methods
     const user = this;
-    const token = jwt.sign({ _id: user._id.toString() }, 'yogitalearningnode');
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
     user.tokens = user.tokens.concat({ token });
     await user.save();
     return token;
