@@ -1,28 +1,36 @@
-const NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const sGmail = require('@sendgrid/mail');
+var nodemailer = require("nodemailer");
+//import logger from "../../utils/logger";
 
-sGmail.setApiKey(process.env.SENDGRID_API_KEY);
+const sendEmail = async (to, emailBody, emailSubject, htmlBody) => {
+    var transporter = nodemailer.createTransport({
+        host : process.env.SMTP_HOST,
+        tls: {
+          ciphers:"SSLv3"
+          },
+          port : 587,
+        auth: {
+          user: process.env.SMTP_EMAIL,
+          pass: process.env.SMTP_PASS 
+        }
+      });
 
-const sendWelcomeEmail = (email, name) => {
-    sGmail.send({
-        to: email,
-        from: 'dyogita04@gmail.com',
-        subject: 'Thanks for joining in!',
-        text: `Welcome to the app, ${name}. let me know how you get along with the app`,
-        html : '<h1>Happy Learning:-)</h1>'
-    })
-}
+    var mailOptions = {
+        from: process.env.SMTP_EMAIL,
+        to: to,
+        subject: emailSubject,
+        text: emailBody,
+        html : htmlBody || ""
+      };
 
-const sendCancelationEmail = (email,name)=>{
-    sGmail.send({
-        to : email,
-        from :'dyogita04@gmail.com',
-        subject : 'Sorry to see you go',
-        text : `Goodbye ${name}. Hope to see you soon!`
-    })
-}
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      }); 
+};
 
 module.exports = {
-    sendWelcomeEmail,
-    sendCancelationEmail
+    sendEmail
 };

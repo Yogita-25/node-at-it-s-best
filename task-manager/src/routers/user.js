@@ -4,13 +4,17 @@ const auth = require('../middleware/auth');
 const router = new express.Router();
 const multer = require('multer');
 const sharp = require('sharp');
-const { sendWelcomeEmail, sendCancelationEmail } = require('../emails/account');
+const { sendEmail} = require('../emails/account');
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body);
     try {
         await user.save();
-        sendWelcomeEmail(user.email, user.name);
+        const to = user.email;
+        const mail_body = "";
+        const mail_html = "Dear " + user.name + ", <br><br>Welcome To Node Learning..!! <br><br>Your account has been successfully created.<br> ";
+        const mail_subject = "without sender Registration Successfull!!";
+        await sendEmail(to, mail_body, mail_subject,mail_html);
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
     } catch (e) {
