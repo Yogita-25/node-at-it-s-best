@@ -23,18 +23,37 @@ beforeEach(async () => {               //runs before every test in this test sui
 })
 
 test('should signup a new user', async () => {
-    await request(app).post('/users').send({
+    const response = await request(app).post('/users').send({
         name: 'Yogita Dhanwate',
         email: 'yogita.dhanwate@gmail.com',
         password: 'Saiyogi@254'
     }).expect(201)
+
+    //Assert that the database changed correctly
+    const user = await User.findById(response.body.user._id);
+    expect(user).not.toBeNull();     //user not null
+
+    //Assertion about the response
+    //expect(response.body.user.name).toBe('Yogita Dhanwate');  //to test one property
+    expect(response.body).toMatchObject({                       //to test multiple properties
+        user: {
+            name: 'Yogita Dhanwate'
+        },
+        token: user.tokens[0].token
+    })
+
+    expect(user.password).not.toBe('Saiyogi@254')
 })
 
 test('should login existing user', async () => {
-    await request(app).post('/user/login').send({
+    const response = await request(app).post('/user/login').send({
         email: userOne.email,
         password: userOne.password
     }).expect(200)
+
+    //validate new token is saved
+    const user = await User.findById(response.body.user._id);
+    expect(response.body.token).toBe(user.tokens[1].token)
 })
 
 test('should not login nonexistent user', async () => {
@@ -60,16 +79,21 @@ test('should not get profile for unauthenticated user', async () => {
 })
 
 test('should delete account for user', async () => {
-    await request(app)
+    const response=await request(app)
         .delete('/user/me')
         .set('Authorization', userOne.tokens[0].token)
         .send()
         .expect(200);
+     
+
+    //validate user is removed
+    const user = await User.findById(response.body._id);
+    expect(user).toBeNull();
 })
 
-test('should not delete account for unauthenticated user',async()=>{
+test('should not delete account for unauthenticated user', async () => {
     await request(app)
-    .delete('/user/me')
-    .send()
-    .expect(404);
+        .delete('/user/me')
+        .send()
+        .expect(404);
 })
