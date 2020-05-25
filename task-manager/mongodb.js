@@ -5,7 +5,7 @@ const { MongoClient, ObjectId } = require('mongodb');;
 const connectionURL = process.env.MONGODB_URL;
 const database = 'task-manager';
 
-require('./config/dev.env')
+require('.env')
 
 const id = new ObjectId();
 
