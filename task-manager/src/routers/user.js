@@ -81,7 +81,6 @@ router.patch('/user/me', auth, async (req, res) => {
 router.delete('/user/me', auth, async (req, res) => {    //delete your own account
     try {
         await req.user.remove();
-        sendCancelationEmail(req.user.email, req.user.name);
         res.send(req.user);
     } catch (e) {
         res.status(500).send(e);

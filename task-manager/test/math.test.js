@@ -20,12 +20,6 @@ test('Should convert 0 C to 32 F', () => {
     expect(temp).toBe(32);
 });
 
-// test('async test demo', (done) => {
-//     setTimeout(() => {
-//         expect(1).toBe(1);
-//         done();                    //test pass or fail decision is taken after assertion
-//     }, 5000)
-// })
 
 test('should add two numbers', (done) => {    //using promise 
     add(2, 3).then((sum) => {
