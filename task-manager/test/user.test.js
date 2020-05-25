@@ -10,7 +10,7 @@ const userOneId = mongoose.Types.ObjectId();
 const userOne = {
     _id: userOneId,
     name: 'kiran dhanwate',
-    email: 'dyogita04@gmail.com',
+    email: 'kirandhanwate12345@gmail.com',
     password: 'Saikiran@12',
     tokens: [{
         token: jwt.sign({ _id: userOneId.toString() }, process.env.JWT_SECRET)
@@ -25,7 +25,7 @@ beforeEach(async () => {               //runs before every test in this test sui
 test('should signup a new user', async () => {
     const response = await request(app).post('/users').send({
         name: 'Yogita Dhanwate',
-        email: 'yogita.dhanwate@gmail.com',
+        email: 'dyogita04@gmail.com',
         password: 'Saiyogi@254'
     }).expect(201)
 
@@ -79,12 +79,12 @@ test('should not get profile for unauthenticated user', async () => {
 })
 
 test('should delete account for user', async () => {
-    const response=await request(app)
+    const response = await request(app)
         .delete('/user/me')
         .set('Authorization', userOne.tokens[0].token)
         .send()
         .expect(200);
-     
+
 
     //validate user is removed
     const user = await User.findById(response.body._id);
@@ -96,4 +96,36 @@ test('should not delete account for unauthenticated user', async () => {
         .delete('/user/me')
         .send()
         .expect(404);
+})
+
+test('should upload avatar image', async () => {
+    await request(app)
+        .post('/users/me/avatar')
+        .set('Authorization', userOne.tokens[0].token)
+        .attach('avatar', 'test/fixtures/img2.jpg')
+        .expect(200)
+    const user = await User.findById(userOneId);
+    expect(user.avatar).toEqual(expect.any(Buffer));
+})
+
+test('should update valid user field', async () => {
+    await request(app)
+        .patch('/user/me')
+        .set('Authorization', userOne.tokens[0].token)
+        .send({
+            name: 'Raj Sharma'
+        })
+        .expect(200)
+    const user = await User.findById(userOneId);
+    expect(user.name).toEqual('Raj Sharma')
+})
+
+test('should not update invalid user field', async () => {
+    await request(app)
+        .patch('/user/me')
+        .set('Authorization', userOne.tokens[0].token)
+        .send({
+            location: 'Pune'
+        })
+        .expect(400)
 })
